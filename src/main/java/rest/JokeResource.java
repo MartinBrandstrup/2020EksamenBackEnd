@@ -94,7 +94,6 @@ public class JokeResource
         Gson gson = new Gson();
         List<ChuckDTO> chuckList = new ArrayList<>();
         List<DadDTO> dadList = new ArrayList<>();
-
         try
         {
             for (int i = 0; i < chuck; i++)
