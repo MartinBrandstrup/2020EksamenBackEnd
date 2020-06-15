@@ -42,7 +42,7 @@ public class JokeResource
 
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory(
             "pu",
-            "jdbc:mysql://localhost:3307/2020CA3_test",
+            "jdbc:mysql://localhost:3307/2020Eksamen",
             "dev",
             "ax2",
             EMF_Creator.Strategy.CREATE);
@@ -63,9 +63,6 @@ public class JokeResource
         headers.put("User-Agent", "server");
         String result = WEBSCRAPER.sendRequest(url, "GET", headers, 5000);
 
-        // Jeg mener at TypeToken er den, der holder styr på hvilke JSON attributter
-        // der bliver smidt med og får dem placeret korrekt i den resulterende DTO
-        // så længe at navngivningen holder
         ChuckDTO chuckDTO = gson.fromJson(result, new TypeToken<ChuckDTO>()
         {
         }.getType());
@@ -137,31 +134,4 @@ public class JokeResource
         return combJSON;
     }
 
-//    @GET
-//    @Produces(MediaType.APPLICATION_JSON)
-//    public String getJokes() throws IOException
-//    {
-//        Gson gson = new Gson();
-//        String chuck1 = HttpUtils_deprecated.fetchData("https://api.chucknorris.io/jokes/random");
-//        ChuckDTO chuckDTO1 = gson.fromJson(chuck1, ChuckDTO.class);
-//
-//        String chuck2 = HttpUtils_deprecated.fetchData("https://api.chucknorris.io/jokes/random");
-//        ChuckDTO chuckDTO2 = gson.fromJson(chuck2, ChuckDTO.class);
-//
-//        String chuck3 = HttpUtils_deprecated.fetchData("https://api.chucknorris.io/jokes/random");
-//        ChuckDTO chuckDTO3 = gson.fromJson(chuck3, ChuckDTO.class);
-//
-//        String chuck4 = HttpUtils_deprecated.fetchData("https://api.chucknorris.io/jokes/random");
-//        ChuckDTO chuckDTO4 = gson.fromJson(chuck4, ChuckDTO.class);
-//
-//        String dad = HttpUtils_deprecated.fetchData("https://icanhazdadjoke.com");
-//        DadDTO dadDTO = gson.fromJson(dad, DadDTO.class);
-//
-//        OurDTO_deprecated combinedDTO = new OurDTO_deprecated(chuckDTO1, chuckDTO2, chuckDTO3, chuckDTO4, dadDTO);
-//
-//        //This is what your endpoint should return
-//        String combinedJSON = gson.toJson(combinedDTO);
-//
-//        return combinedJSON;
-//    }
 }

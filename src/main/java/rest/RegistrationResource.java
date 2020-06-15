@@ -40,7 +40,7 @@ public class RegistrationResource
     
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory(
                 "pu",
-                "jdbc:mysql://localhost:3307/2020CA3_test",
+                "jdbc:mysql://localhost:3307/2020Eksamen_test",
                 "dev",
                 "ax2",
                 EMF_Creator.Strategy.CREATE);
@@ -72,9 +72,7 @@ public class RegistrationResource
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public String createUser(String requestBody){
-//        JsonObject json = new JsonParser().parse(requestBody).getAsJsonObject();
         UserDTO userDTO = GSON.fromJson(requestBody, UserDTO.class);
-       
         try {
             return GSON.toJson(FACADE.createNormalUser(userDTO.getUsername(), userDTO.getPassword(), "user"));
         } catch (AlreadyExistsException ex) {

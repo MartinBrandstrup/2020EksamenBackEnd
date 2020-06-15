@@ -29,7 +29,7 @@ public class FacadeExampleTest {
     public static void setUpClass() {
         emf = EMF_Creator.createEntityManagerFactory(
                 "pu",
-                "jdbc:mysql://localhost:3307/2020CA3_test",
+                "jdbc:mysql://localhost:3307/2020Eksamen_test",
                 "dev",
                 "ax2",
                 EMF_Creator.Strategy.CREATE);
