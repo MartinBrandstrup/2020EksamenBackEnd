@@ -10,8 +10,8 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 /**
- * 
- * 
+ *
+ *
  * @author Brandstrup
  */
 public class MasterFacade
@@ -45,10 +45,7 @@ public class MasterFacade
         return emf.createEntityManager();
     }
 
-    
     ///////////////////////// FoodItems/Storage \\\\\\\\\\\\\\\\\\\\\\\\\
-    
-    
     /**
      * Counts the amount of entries existing in the database.
      *
@@ -67,11 +64,8 @@ public class MasterFacade
             em.close();
         }
     }
-    
-    
+
     ///////////////////////// FoodItems/Storage \\\\\\\\\\\\\\\\\\\\\\\\\
-    
-    
     /**
      * Counts the amount of entries existing in the database.
      *
@@ -111,20 +105,20 @@ public class MasterFacade
     }
 
     /**
-     * This method attempts to update an existing Storage entity to the database 
-     * with the newly provided supply (itemAmount).
-     * It checks if the provided itemName already exists in the database as an 
-     * FoodItem entity, and if not will automatically persist this FoodItem as 
-     * well as the corresponding Storage entity. This ensures that the OneToOne 
-     * relationship between these two entities will always be in effect; thus if 
-     * one exists so must the other.
-     * 
+     * This method attempts to update an existing Storage entity to the database
+     * with the newly provided supply (itemAmount). It checks if the provided
+     * itemName already exists in the database as an FoodItem entity, and if not
+     * will automatically persist this FoodItem as well as the corresponding
+     * Storage entity. This ensures that the OneToOne relationship between these
+     * two entities will always be in effect; thus if one exists so must the
+     * other.
+     *
      * @param itemName
      * @param itemAmount
      * @param itemPrice
-     * @return 
+     * @return
      */
-    public Storage persistUpdateFoodItemToStorage(String itemName, long itemAmount, long itemPrice)
+    public Storage updateFoodItemToStorage(String itemName, long itemAmount, long itemPrice)
     {
         EntityManager em = getEntityManager();
         Storage storage = null;
@@ -141,16 +135,36 @@ public class MasterFacade
             long oldAmount = storage.getFoodItemAmount();
             storage.setFoodItemAmount(oldAmount + itemAmount);
 
+            em.getTransaction().begin();
             em.merge(storage);
+            em.getTransaction().commit();
             return storage;
         }
         catch (NoResultException ex)
         {
+            return persistFoodItemToStorage(itemName, itemAmount, itemPrice);
+        }
+        finally
+        {
+            em.close();
+        }
+    }
+
+    public Storage persistFoodItemToStorage(String itemName, long itemAmount, long itemPrice)
+    {
+        EntityManager em = getEntityManager();
+        Storage storage = null;
+        FoodItem foodItem = null;
+
+        try
+        {
             foodItem = new FoodItem(itemName, itemPrice);
             storage = new Storage(itemAmount, foodItem);
-
+            
+            em.getTransaction().begin();
             em.persist(foodItem);
             em.persist(storage);
+            em.getTransaction().commit();
             return storage;
         }
         finally
