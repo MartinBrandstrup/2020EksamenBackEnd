@@ -3,9 +3,17 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import utils.EMF_Creator;
+import dtos.FoodItemDTOIn;
+import dtos.FoodItemDTOOut;
+import entities.FoodItem;
+import entities.Storage;
 import facades.MasterFacade;
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManagerFactory;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
@@ -44,4 +52,21 @@ public class FoodItemResource
         return "{\"count\":" + count + "}";
     }
 
+    @POST
+    @RolesAllowed({"user", "admin"}) //Remember to change to admin only!
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    public String persistUpdateFoodItemToStorage(String requestBody)
+    {
+        FoodItemDTOIn fiDTO = GSON.fromJson(requestBody, FoodItemDTOIn.class);
+        
+        Storage sManaged = FACADE.updateFoodItemToStorage(
+                fiDTO.getItemName(), fiDTO.getItemAmount(), fiDTO.getPricePerKG());
+
+        FoodItem fiManaged = sManaged.getFoodItem();
+        FoodItemDTOOut result = new FoodItemDTOOut(sManaged, fiManaged);
+        
+        return GSON.toJson(result);
+    }
+    
 }
