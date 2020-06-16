@@ -63,7 +63,6 @@ public class UserFacade
         try
         {
           Role userRole = em.find(Role.class, role);
-//            Role userRole = new Role("user");
             userRegister.addRole(userRole);
             User user = em.find(User.class, username);
             if (user != null)
