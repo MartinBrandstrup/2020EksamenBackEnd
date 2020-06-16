@@ -133,7 +133,7 @@ public class WeekMenu implements Serializable
     {
         if (recipes == null || recipes.size() != 7)
         {
-            throw new IllegalArgumentException();
+            throw new IllegalArgumentException("Recipe set is null, larger or smaller than 7.");
         }
 
         recipes.forEach((recipe) ->
