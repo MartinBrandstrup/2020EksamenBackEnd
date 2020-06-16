@@ -3,7 +3,7 @@ package rest;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import utils.EMF_Creator;
-import facades.FacadeExample;
+import facades.MasterFacade;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -21,7 +21,7 @@ public class RenameMeResource_deprecated
             "dev",
             "ax2",
             EMF_Creator.Strategy.CREATE);
-    private static final FacadeExample FACADE = FacadeExample.getFacadeExample(EMF);
+    private static final MasterFacade FACADE = MasterFacade.getMasterFacade(EMF);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     @GET
@@ -34,10 +34,10 @@ public class RenameMeResource_deprecated
     @GET
     @Path("count")
     @Produces(MediaType.APPLICATION_JSON)
-    public String getRenameMeCount()
+    public String getFoodItemCount()
     {
-        long count = FACADE.getRenameMeCount();
-        return "{\"count\":" + count + "}";  //Done manually so no need for a DTO
+        long count = FACADE.getFoodItemCount();
+        return "{\"count\":" + count + "}";
     }
 
 }
