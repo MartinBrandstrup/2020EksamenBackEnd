@@ -173,7 +173,7 @@ public class MasterFacadeTest
      * When providing existing FoodItem.
      */
     @Test
-    public void testExistingPersistFoodItemToStorage()
+    public void testUpdateFoodItemToStorage()
     {
         System.out.println("persistFoodItemToStorage");
         
@@ -182,32 +182,32 @@ public class MasterFacadeTest
         long itemPrice = 200;
         
         long expResult = testS1.getFoodItemAmount() + itemAmount;
-        long result = facade.persistUpdateFoodItemToStorage(itemName, itemAmount, itemPrice)
+        long result = facade.updateFoodItemToStorage(itemName, itemAmount, itemPrice)
                 .getFoodItemAmount();
         
         assertEquals(expResult, result);
     }
     
-//    /**
-//     * Test of persistFoodItemToStorage method, of class MasterFacade.
-//     * When providing non-existing FoodItem.
-//     */
-//    @Test
-//    public void testNewPersistFoodItemToStorage()
-//    {
-//        System.out.println("persistFoodItemToStorage");
-//        
-//        String itemName = "Hvidløg";
-//        long itemAmount = 3;
-//        long itemPrice = 4444;
-//        
-//        assertEquals(2, facade.getFoodItemCount());
-//        assertEquals(1, facade.getStorageCount());
-//        
-//        facade.persistFoodItemToStorage(itemName, itemAmount, itemPrice);
-//        
-//        assertEquals(3, facade.getFoodItemCount());
-//        assertEquals(2, facade.getStorageCount());
-//    }
+    /**
+     * Test of persistFoodItemToStorage method, of class MasterFacade.
+     * When providing non-existing FoodItem.
+     */
+    @Test
+    public void testPersistFoodItemToStorage()
+    {
+        System.out.println("persistFoodItemToStorage");
+        
+        String itemName = "Hvidløg";
+        long itemAmount = 3;
+        long itemPrice = 4444;
+        
+        assertEquals(2, facade.getFoodItemCount());
+        assertEquals(1, facade.getStorageCount());
+        
+        facade.updateFoodItemToStorage(itemName, itemAmount, itemPrice);
+        
+        assertEquals(3, facade.getFoodItemCount());
+        assertEquals(2, facade.getStorageCount());
+    }
 
 }
