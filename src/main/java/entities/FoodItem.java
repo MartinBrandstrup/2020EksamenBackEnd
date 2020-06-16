@@ -37,8 +37,9 @@ public class FoodItem implements Serializable
     @Column(nullable = false, unique = true, name = "item_name")
     private String itemName;
 
+    // In øre
     @Column(name = "price_per_kg")
-    private double pricePerKG;
+    private long pricePerKG;
 
     // in which recipes is this ingredient used in
     @OneToMany(mappedBy = "foodItem", cascade =
@@ -52,7 +53,7 @@ public class FoodItem implements Serializable
     @JoinColumn(name = "storage_id")
     private Storage storage;
 
-    public FoodItem(String itemName, double pricePerKG)
+    public FoodItem(String itemName, long pricePerKG)
     {
         this.itemName = itemName;
         this.pricePerKG = pricePerKG;
@@ -84,12 +85,12 @@ public class FoodItem implements Serializable
         this.itemName = itemName;
     }
 
-    public double getPricePerKG()
+    public long getPricePerKG()
     {
         return pricePerKG;
     }
 
-    public void setPricePerKG(double pricePerKG)
+    public void setPricePerKG(long pricePerKG)
     {
         this.pricePerKG = pricePerKG;
     }
