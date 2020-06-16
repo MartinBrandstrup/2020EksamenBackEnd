@@ -67,6 +67,11 @@ public class Recipe_FoodItem implements Serializable
         return foodItem;
     }
 
+    /**
+     * !!Warning!! 
+     * This method should not be called! 
+     * Use the addFoodItem method from the appropriate Recipe object instead.
+     */
     public void setFoodItem(FoodItem foodItem)
     {
         this.foodItem = foodItem;
@@ -77,6 +82,11 @@ public class Recipe_FoodItem implements Serializable
         return recipe;
     }
 
+    /**
+     * !!Warning!! 
+     * This method should not be called! 
+     * Use the addFoodItem method from the appropriate Recipe object instead.
+     */
     public void setRecipe(Recipe recipe)
     {
         this.recipe = recipe;
