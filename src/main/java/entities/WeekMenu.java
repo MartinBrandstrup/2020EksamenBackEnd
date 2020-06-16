@@ -101,14 +101,37 @@ public class WeekMenu implements Serializable
         return recipes;
     }
 
+    /**
+     * 
+     * @param recipes the HashSet containing 7 Recipe objects to add to this 
+     * WeekMenu object.
+     * @throws IllegalArgumentException if the provided HashSet does not contain 
+     * exactly 7 Recipe objects or is null.
+     */
     public void setRecipes(Set<Recipe> recipes) throws IllegalArgumentException
     {
         addRecipes(recipes);
     }
+    
+    /**
+     * This method completely cleans the Recipe HashSet for this object. All 
+     * appropriate relations between Recipe objects and this WeekMenu object 
+     * are also removed.
+     */
+    public void removeRecipes()
+    {
+        for (Recipe recipe : this.recipes)
+        {
+            recipe.removeMenu(this);
+            this.recipes.remove(recipe);
+        }
+        
+        this.recipes = new HashSet();
+    }
 
     private void addRecipes(Set<Recipe> recipes)
     {
-        if (recipes == null || recipes.isEmpty() || recipes.size() != 7)
+        if (recipes == null || recipes.size() != 7)
         {
             throw new IllegalArgumentException();
         }
