@@ -46,7 +46,7 @@ public class Storage implements Serializable
 //    @JoinColumn(name = "food_item_id")
 //    private Set<FoodItem> foodItems;
     
-    @OneToOne(mappedBy = "storage", cascade = CascadeType.REMOVE)
+    @OneToOne(mappedBy = "storage", cascade = CascadeType.ALL)
     @JoinColumn(name = "food_item_id")
     private FoodItem foodItem;
 
