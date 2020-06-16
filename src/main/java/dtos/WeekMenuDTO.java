@@ -5,6 +5,9 @@
  */
 package dtos;
 
+import entities.Recipe;
+import entities.WeekMenu;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -13,7 +16,19 @@ import java.util.List;
  */
 public class WeekMenuDTO
 {
-    private int weekNumber;
-    private int year;
-    private List<RecipeDTO> recipes;
+    private String weekNumber, year;
+    private List<RecipeDTO> recipes = new ArrayList();
+
+    public WeekMenuDTO(WeekMenu menu)
+    {
+        this.weekNumber = "" + menu.getWeekNumber();
+        this.year = "" + menu.getYear();
+        
+        for (Recipe recipe : menu.getRecipes())
+        {
+            recipes.add(new RecipeDTO(recipe));
+        }
+    }
+    
+    
 }
