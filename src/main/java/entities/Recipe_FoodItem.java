@@ -41,6 +41,11 @@ public class Recipe_FoodItem implements Serializable
     @Column(name = "food_item_amount")
     private long foodItemAmount;
 
+    /**
+     * !!Warning!! 
+     * This method object should not be manually constructed! 
+     * Use the addFoodItem method from the appropriate Recipe object instead.
+     */
     public Recipe_FoodItem(FoodItem foodItem, Recipe recipe, long foodItemAmount)
     {
         this.foodItem = foodItem;
