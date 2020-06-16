@@ -49,7 +49,7 @@ public class FoodItem implements Serializable
     private Set<Recipe_FoodItem> recipes;
 
 //    @ManyToOne
-    @OneToOne
+    @OneToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "storage_id")
     private Storage storage;
 
