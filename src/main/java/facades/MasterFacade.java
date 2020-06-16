@@ -1,7 +1,6 @@
 package facades;
 
 import entities.FoodItem;
-import entities.RenameMe;
 import entities.Storage;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -11,8 +10,9 @@ import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
 /**
- *
- * Rename Class to a relevant name Add add relevant facade methods
+ * 
+ * 
+ * @author Brandstrup
  */
 public class MasterFacade
 {
@@ -45,6 +45,29 @@ public class MasterFacade
         return emf.createEntityManager();
     }
 
+    
+    ///////////////////////// FoodItems/Storage \\\\\\\\\\\\\\\\\\\\\\\\\
+    
+    
+    /**
+     * Counts the amount of entries existing in the database.
+     *
+     * @return The amount of existing entries in the database.
+     */
+    public long getRecipeCount()
+    {
+        EntityManager em = emf.createEntityManager();
+        try
+        {
+            long recipeCount = (long) em.createQuery("SELECT COUNT(e) FROM Recipe e").getSingleResult();
+            return recipeCount;
+        }
+        finally
+        {
+            em.close();
+        }
+    }
+    
     
     ///////////////////////// FoodItems/Storage \\\\\\\\\\\\\\\\\\\\\\\\\
     
