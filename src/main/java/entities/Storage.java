@@ -38,7 +38,7 @@ public class Storage implements Serializable
 
     // Jeg antager at OneToMany er opsat for at der kan være flere varianter af 
     // en type ingrediens. Jeg mener at det forvirrer mere end det gavner, og 
-    // har istedet valgt at lave det til en OneToOne relation med en Type istedet.
+    // har istedet valgt at lave det til en OneToOne relation.
 //    @OneToMany(mappedBy = "storage", cascade =
 //    {
 //        CascadeType.MERGE, CascadeType.PERSIST
