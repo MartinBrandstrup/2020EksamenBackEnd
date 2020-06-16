@@ -1,6 +1,7 @@
 package entities;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -25,7 +26,7 @@ public class Recipe_FoodItem implements Serializable
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+//    @Column(name = "id")
     private Long id;
 
     @ManyToOne
@@ -40,8 +41,13 @@ public class Recipe_FoodItem implements Serializable
     @Column(name = "food_item_amount")
     private long foodItemAmount;
 
-    
-    
+    public Recipe_FoodItem(FoodItem foodItem, Recipe recipe, long foodItemAmount)
+    {
+        this.foodItem = foodItem;
+        this.recipe = recipe;
+        this.foodItemAmount = foodItemAmount;
+    }
+
     public Recipe_FoodItem()
     {
     }
@@ -54,6 +60,78 @@ public class Recipe_FoodItem implements Serializable
     public void setId(Long id)
     {
         this.id = id;
+    }
+
+    public FoodItem getFoodItem()
+    {
+        return foodItem;
+    }
+
+    public void setFoodItem(FoodItem foodItem)
+    {
+        this.foodItem = foodItem;
+    }
+
+    public Recipe getRecipe()
+    {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe)
+    {
+        this.recipe = recipe;
+    }
+
+    public long getFoodItemAmount()
+    {
+        return foodItemAmount;
+    }
+
+    public void setFoodItemAmount(long foodItemAmount)
+    {
+        this.foodItemAmount = foodItemAmount;
+    }
+
+    @Override
+    public int hashCode()
+    {
+        int hash = 5;
+        hash = 79 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj)
+    {
+        if (this == obj)
+        {
+            return true;
+        }
+        if (obj == null)
+        {
+            return false;
+        }
+        if (getClass() != obj.getClass())
+        {
+            return false;
+        }
+        final Recipe_FoodItem other = (Recipe_FoodItem) obj;
+        if (!Objects.equals(this.id, other.id))
+        {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString()
+    {
+        return "Recipe_FoodItem{" 
+                + "id=" + id 
+                + ", foodItem=" + foodItem 
+                + ", recipe=" + recipe 
+                + ", foodItemAmount=" + foodItemAmount 
+                + '}';
     }
 
 }
