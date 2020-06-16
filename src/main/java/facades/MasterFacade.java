@@ -6,6 +6,7 @@ import entities.Storage;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 
@@ -86,37 +87,48 @@ public class MasterFacade
         }
     }
 
-    public Storage persistFoodItemToStorage(String itemName, long itemAmount, long itemPrice)
+    /**
+     * This method attempts to update an existing Storage entity to the database 
+     * with the newly provided supply (itemAmount).
+     * It checks if the provided itemName already exists in the database as an 
+     * FoodItem entity, and if not will automatically persist this FoodItem as 
+     * well as the corresponding Storage entity. This ensures that the OneToOne 
+     * relationship between these two entities will always be in effect; thus if 
+     * one exists so must the other.
+     * 
+     * @param itemName
+     * @param itemAmount
+     * @param itemPrice
+     * @return 
+     */
+    public Storage persistUpdateFoodItemToStorage(String itemName, long itemAmount, long itemPrice)
     {
         EntityManager em = getEntityManager();
+        Storage storage = null;
+        FoodItem foodItem = null;
+
         try
         {
-            Storage storage = null;
-            FoodItem foodItem = null;
-
             TypedQuery<FoodItem> query = em.createQuery("SELECT e FROM FoodItem e "
                     + "WHERE e.itemName = :name", FoodItem.class)
                     .setParameter("name", itemName);
             foodItem = query.getSingleResult();
-            
-            if (foodItem == null)
-            {
-                foodItem = new FoodItem(itemName, itemPrice);
-                storage = new Storage(itemAmount, foodItem);
-                
-                em.persist(foodItem);
-                em.persist(storage);
-                return storage;
-            }
-            else
-            {
-                storage = foodItem.getStorage();
-                long oldAmount = storage.getFoodItemAmount();
-                storage.setFoodItemAmount(oldAmount + itemAmount);
-                
-                em.merge(storage);
-                return storage;
-            }
+
+            storage = foodItem.getStorage();
+            long oldAmount = storage.getFoodItemAmount();
+            storage.setFoodItemAmount(oldAmount + itemAmount);
+
+            em.merge(storage);
+            return storage;
+        }
+        catch (NoResultException ex)
+        {
+            foodItem = new FoodItem(itemName, itemPrice);
+            storage = new Storage(itemAmount, foodItem);
+
+            em.persist(foodItem);
+            em.persist(storage);
+            return storage;
         }
         finally
         {
