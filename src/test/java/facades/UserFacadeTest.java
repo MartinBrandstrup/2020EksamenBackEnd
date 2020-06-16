@@ -5,7 +5,6 @@
  */
 package facades;
 
-import entities.RenameMe;
 import entities.Role;
 import entities.User;
 import errorhandling.AlreadyExistsException;
