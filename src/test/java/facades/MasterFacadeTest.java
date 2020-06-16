@@ -77,7 +77,7 @@ public class MasterFacadeTest
     
     Set<Recipe> potatoes = new HashSet();
     
-    WeekMenu menu = new WeekMenu(potatoes);
+    WeekMenu testM1 = null;
    
     // Setup the DataBase in a known state BEFORE EACH TEST
     @BeforeEach
@@ -91,6 +91,7 @@ public class MasterFacadeTest
             em.createNamedQuery("FoodItem.deleteAllRows").executeUpdate();
             em.createNamedQuery("Storage.deleteAllRows").executeUpdate();
             em.createNamedQuery("Recipe.deleteAllRows").executeUpdate();
+            em.createNamedQuery("WeekMenu.deleteAllRows").executeUpdate();
 
             testR1.addFoodItem(testFI1, 12000); //Vægt i gram
             testR1.addFoodItem(testFI2, 20000);
@@ -109,6 +110,7 @@ public class MasterFacadeTest
             potatoes.add(testR6);
             potatoes.add(testR7);
             
+            testM1 = new WeekMenu(potatoes);
             
             em.persist(testFI1);
             em.persist(testFI2);
@@ -120,6 +122,7 @@ public class MasterFacadeTest
             em.persist(testR5);
             em.persist(testR6);
             em.persist(testR7);
+            em.persist(testM1);
 
             em.getTransaction().commit();
         }
