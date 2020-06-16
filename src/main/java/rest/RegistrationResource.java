@@ -62,7 +62,7 @@ public class RegistrationResource
     @Path("/count")
     @GET
     @Produces({MediaType.APPLICATION_JSON})
-    public String getRenameMeCount() {
+    public String getUserCount() {
         long count = FACADE.getUserCount();
         return "{\"count\":"+count+"}";  //Done manually so no need for a DTO
     }
