@@ -32,18 +32,16 @@ import utils.EMF_Creator;
  *
  * @author Christian
  */
-
-
 @Path("register")
 public class RegistrationResource
 {
-    
+
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory(
-                "pu",
-                "jdbc:mysql://localhost:3307/2020Eksamen_test",
-                "dev",
-                "ax2",
-                EMF_Creator.Strategy.CREATE);
+            "pu",
+            "jdbc:mysql://localhost:3307/2020Eksamen_test",
+            "dev",
+            "ax2",
+            EMF_Creator.Strategy.CREATE);
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
     private static final UserFacade FACADE = UserFacade.getUserFacade(EMF);
 
@@ -52,32 +50,41 @@ public class RegistrationResource
 
     @Context
     SecurityContext securityContext;
-    
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public String dummyMessage() {
+    public String dummyMessage()
+    {
         return "{\"msg\":\"Dummy message\"}";
     }
-    
+
     @Path("/count")
     @GET
-    @Produces({MediaType.APPLICATION_JSON})
-    public String getUserCount() {
+    @Produces(
+    {
+        MediaType.APPLICATION_JSON
+    })
+    public String getUserCount()
+    {
         long count = FACADE.getUserCount();
-        return "{\"count\":"+count+"}";  //Done manually so no need for a DTO
+        return "{\"count\":" + count + "}";
     }
 
     @POST
     @Path("/user")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public String createUser(String requestBody){
+    public String createUser(String requestBody)
+    {
         UserDTO userDTO = GSON.fromJson(requestBody, UserDTO.class);
-        try {
+        try
+        {
             return GSON.toJson(FACADE.createNormalUser(userDTO.getUsername(), userDTO.getPassword(), "user"));
-        } catch (AlreadyExistsException ex) {
+        }
+        catch (AlreadyExistsException ex)
+        {
             throw new WebApplicationException(ex.getMessage(), 400);
         }
     }
-    
+
 }
