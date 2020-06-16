@@ -5,6 +5,8 @@
  */
 package dtos;
 
+import entities.Recipe;
+
 /**
  *
  * @author Brandstrup
@@ -12,4 +14,16 @@ package dtos;
 public class RecipeDTO
 {
     private String recipeName, instructions, preparationTime;
+
+    public RecipeDTO(Recipe recipe)
+    {
+        this.recipeName = recipe.getRecipeName();
+        this.instructions = recipe.getInstructions();
+        
+        int totalPrepTime = recipe.getPreparationTime();
+        int hours = totalPrepTime/60;
+        int minutes = totalPrepTime%60;
+        this.preparationTime = "Preparation time: " + hours + " hours, " + minutes + " minutes.";
+    }
+    
 }
