@@ -23,7 +23,7 @@ public class RecipeDTO
         int totalPrepTime = recipe.getPreparationTime();
         int hours = totalPrepTime/60;
         int minutes = totalPrepTime%60;
-        this.preparationTime = "Preparation time: " + hours + " hours, " + minutes + " minutes.";
+        this.preparationTime = hours + " hours, " + minutes + " minutes.";
     }
     
 }
