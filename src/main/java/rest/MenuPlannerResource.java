@@ -2,6 +2,7 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dtos.WeekMenuDTO;
 import utils.EMF_Creator;
 import facades.MasterFacade;
 import javax.persistence.EntityManagerFactory;
@@ -11,12 +12,12 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 /**
- * 
- * 
+ *
+ *
  * @author Brandstrup
  */
-@Path("recipe")
-public class RecipeResource
+@Path("menu")
+public class MenuPlannerResource
 {
 
     private static final EntityManagerFactory EMF = EMF_Creator.createEntityManagerFactory(
@@ -29,19 +30,29 @@ public class RecipeResource
     private static final Gson GSON = new GsonBuilder().setPrettyPrinting().create();
 
     @GET
-    @Produces(MediaType.APPLICATION_JSON)
-    public String demo()
-    {
-        return "{\"msg\":\"Hello World\"}";
-    }
-
-    @GET
     @Path("count")
     @Produces(MediaType.APPLICATION_JSON)
     public String getRecipeCount()
     {
         long count = FACADE.getRecipeCount();
         return "{\"count\":" + count + "}";
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getWeekMenu()
+    {
+        WeekMenuDTO wmDTO = FACADE.getWeekMenuPlanForCurrentWeek();
+
+        return GSON.toJson(wmDTO);
+    }
+    
+    @GET
+    @Path("/populate")
+    @Produces(MediaType.APPLICATION_JSON)
+    public void populateDatabaseWithDummyData()
+    {
+        FACADE.populateDatabase();;
     }
 
 }
