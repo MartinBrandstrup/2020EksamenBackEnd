@@ -6,6 +6,7 @@ import dtos.RecipeListDTO;
 import dtos.WeekMenuDTO;
 import utils.EMF_Creator;
 import facades.MasterFacade;
+import javax.annotation.security.RolesAllowed;
 import javax.persistence.EntityManagerFactory;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -40,6 +41,7 @@ public class MenuPlannerResource
     }
 
     @GET
+    @RolesAllowed({"user","admin"})
     @Produces(MediaType.APPLICATION_JSON)
     public String getWeekMenu()
     {
@@ -49,6 +51,7 @@ public class MenuPlannerResource
     }
     
     @GET
+    @RolesAllowed({"user","admin"})
     @Path("/recipe/all")
     @Produces(MediaType.APPLICATION_JSON)
     public String getAllRecipes()
@@ -59,6 +62,7 @@ public class MenuPlannerResource
     }
     
     @GET
+    @RolesAllowed({"user","admin"})
     @Path("/populate")
     @Produces(MediaType.APPLICATION_JSON)
     public void populateDatabaseWithDummyData()

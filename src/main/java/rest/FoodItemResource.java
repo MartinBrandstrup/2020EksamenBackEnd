@@ -53,7 +53,7 @@ public class FoodItemResource
     }
 
     @POST
-    @RolesAllowed({"user", "admin"}) //Remember to change to admin only!
+    @RolesAllowed({"admin"})
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     public String persistUpdateFoodItemToStorage(String requestBody)
