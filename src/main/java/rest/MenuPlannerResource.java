@@ -2,6 +2,7 @@ package rest;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import dtos.RecipeListDTO;
 import dtos.WeekMenuDTO;
 import utils.EMF_Creator;
 import facades.MasterFacade;
