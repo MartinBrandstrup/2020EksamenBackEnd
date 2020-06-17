@@ -48,6 +48,16 @@ public class MenuPlannerResource
     }
     
     @GET
+    @Path("/recipe/all")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String getAllRecipes()
+    {
+        RecipeListDTO rlDTO = FACADE.getAllRecipes();
+        
+        return GSON.toJson(rlDTO);
+    }
+    
+    @GET
     @Path("/populate")
     @Produces(MediaType.APPLICATION_JSON)
     public void populateDatabaseWithDummyData()
